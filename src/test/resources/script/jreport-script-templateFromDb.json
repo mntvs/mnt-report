@@ -1,0 +1,49 @@
+{
+  "connection": {
+    "url": "url",
+    "userName": "userName",
+    "password": "password"
+  },
+  "outputList": [
+    {
+      "file": {
+        "path": "path"
+      }
+    }
+  ],
+  "reportList": [
+    {
+      "template": {
+        "source": {
+          "db": {
+            "tag": "tt"
+          }
+        }
+      },
+      "exportType": "XLSX"
+    },
+    {
+      "template": {
+        "source": {
+          "db": {
+            "tag": "tt"
+          }
+        }
+      },
+      "paramList": [
+        {
+          "type": "string",
+          "key": "key1",
+          "val": "String"
+        },
+        {
+          "type": "number",
+          "key": "key2",
+          "val": 123
+        }
+      ],
+      "exportType": "PDF",
+      "fileName": "test"
+    }
+  ]
+}

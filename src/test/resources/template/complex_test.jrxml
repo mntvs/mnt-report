@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2018-02-27T12:54:50 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_007" language="groovy" pageWidth="1500" pageHeight="842" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="76c096c9-79ef-4bf9-8cc9-50ed8630d406">
+    <property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+    <property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+    <property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+    <property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+    <style name="beginSaldo" mode="Transparent">
+        <conditionalStyle>
+            <conditionExpression><![CDATA[$F{tag}.equals("Долг") || $F{tag}.equals("Переплата") || $F{tag}==null]]></conditionExpression>
+            <style mode="Opaque" backcolor="#FFFF00" pattern=""/>
+        </conditionalStyle>
+        <conditionalStyle>
+            <conditionExpression><![CDATA[$F{tag}  == "Выплата КВ"]]></conditionExpression>
+            <style mode="Opaque" backcolor="#33CC00" pattern=""/>
+        </conditionalStyle>
+    </style>
+    <parameter name="P_CNT_ID" class="java.lang.String" isForPrompting="false">
+        <parameterDescription><![CDATA[]]></parameterDescription>
+        <defaultValueExpression><![CDATA["200000000000243"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_BEGIN_DATE" class="java.lang.String" isForPrompting="false">
+        <defaultValueExpression><![CDATA["01.11.2017"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_END_DATE" class="java.lang.String" isForPrompting="false">
+        <parameterDescription><![CDATA[]]></parameterDescription>
+        <defaultValueExpression><![CDATA["30.11.2017"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="P_IS_SUB_CNT" class="java.lang.String">
+        <defaultValueExpression><![CDATA["0"]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[select tt.* from
+(select * from lider.fnc_query_report_007_rows($P{P_CNT_ID}::BIGINT ,to_date( $P{P_BEGIN_DATE} ,'dd.mm.yyyy'),to_date( $P{P_END_DATE} ,'dd.mm.yyyy'), $P{P_IS_SUB_CNT}::BIGINT, 1)) tt;]]>
+    </queryString>
+    <field name="agent_name" class="java.lang.String"/>
+    <field name="sub_agent_name" class="java.lang.String"/>
+    <field name="doc_date" class="java.sql.Date"/>
+    <field name="credit" class="java.math.BigDecimal">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <field name="debit" class="java.math.BigDecimal"/>
+    <field name="marker" class="java.lang.String"/>
+    <field name="tag" class="java.lang.String"/>
+    <field name="note" class="java.lang.String"/>
+    <field name="territory_name" class="java.lang.String">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <field name="region_name" class="java.lang.String">
+        <fieldDescription><![CDATA[]]></fieldDescription>
+    </field>
+    <variable name="DEBIT_S" class="java.math.BigDecimal" calculation="Sum">
+        <variableExpression><![CDATA[$F{debit}]]></variableExpression>
+    </variable>
+    <variable name="CREDIT_S" class="java.math.BigDecimal" calculation="Sum">
+        <variableExpression><![CDATA[$F{credit}]]></variableExpression>
+    </variable>
+    <variable name="KV_S" class="java.math.BigDecimal" calculation="Sum">
+        <variableExpression><![CDATA[$F{tag}.equals("Выплата КВ")?$F{debit}:0]]></variableExpression>
+    </variable>
+    <variable name="SALDO" class="java.math.BigDecimal" calculation="Sum">
+        <variableExpression><![CDATA[$V{CREDIT_S}.subtract($V{DEBIT_S})]]></variableExpression>
+    </variable>
+    <title>
+        <band height="64" splitType="Stretch">
+            <property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+            <staticText>
+                <reportElement x="0" y="32" width="140" height="32" uuid="572865c9-3bd6-4e23-b39b-151816cd90e2"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Агент]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="140" y="32" width="170" height="32" uuid="68591a10-4c7f-4fd9-a857-b8fa84165afd"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Партнер]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="310" y="32" width="100" height="32" uuid="ca7aa4da-6374-4236-90ed-a4007abdb397"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Дата]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="410" y="32" width="100" height="32" uuid="9a5eeb9d-9c3a-4124-831c-a555d8ead666"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Приход]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="510" y="32" width="100" height="32" uuid="edcf9f98-5a98-4fae-941c-c7e5f955f8a7"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Расход]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="610" y="32" width="190" height="32" uuid="06480e92-5b7b-40de-a4c2-7c92acaa06e3"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Оператор/маркер]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="800" y="32" width="110" height="32" uuid="8919dae2-8b96-4efb-a915-bec3027b858a"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Тег]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="1210" y="32" width="250" height="32" uuid="317b74e3-42b2-41ee-a078-97ec7700c031"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Комментарий]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="1" width="1460" height="30" uuid="11cc6471-38cd-4534-8b30-deb7d36bac7c"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Акт сверки за период с " + $P{P_BEGIN_DATE} + " по " + $P{P_END_DATE}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="910" y="32" width="170" height="32" uuid="f2d72886-e67d-41d5-bcf4-3063aebcbd6b"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Регион]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="1080" y="32" width="130" height="32" uuid="78324423-24cb-4dae-97c6-99f33916521d"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Территория]]></text>
+            </staticText>
+        </band>
+    </title>
+    <detail>
+        <band height="22" splitType="Stretch">
+            <textField isBlankWhenNull="true">
+                <reportElement key="" style="beginSaldo" x="140" y="0" width="170" height="20" uuid="fd57804f-6502-48ca-b19f-6e3bd3a827f3"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{sub_agent_name}]]></textFieldExpression>
+            </textField>
+            <textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
+                <reportElement key="" style="beginSaldo" x="310" y="0" width="100" height="20" uuid="36c94a22-bba7-4a81-b375-36c2e2d8f29e"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{doc_date}]]></textFieldExpression>
+            </textField>
+            <textField pattern="###0.00" isBlankWhenNull="true">
+                <reportElement key="" style="beginSaldo" x="410" y="0" width="100" height="20" uuid="ee5b3036-d89b-4199-99f2-4d8edbe1f8ad"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{credit}]]></textFieldExpression>
+            </textField>
+            <textField pattern="###0.00" isBlankWhenNull="true">
+                <reportElement key="" style="beginSaldo" x="510" y="0" width="100" height="20" uuid="80111657-7476-45f6-b1dc-533a2c3cc4dd"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{debit}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement key="" style="beginSaldo" x="610" y="0" width="190" height="20" uuid="a58d7c47-9d94-46c4-a802-e7a8331ae33f"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{marker}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement key="" style="beginSaldo" mode="Opaque" x="800" y="0" width="110" height="20" uuid="2eeaea89-388d-4a08-b8b0-ae501d78c160"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{tag}]]></textFieldExpression>
+            </textField>
+            <textField pattern="" isBlankWhenNull="true">
+                <reportElement key="" style="beginSaldo" x="1210" y="0" width="250" height="20" uuid="14d3245a-820f-40c4-9400-1f87a848cfe3"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement key="" style="beginSaldo" x="0" y="0" width="140" height="20" uuid="269337ff-c423-4db2-8449-9791b3507d50"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{agent_name}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement key="" style="beginSaldo" x="910" y="0" width="170" height="20" uuid="36031c61-3a28-4f99-98b1-d1e41cd3878d"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{region_name}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement key="" style="beginSaldo" x="1080" y="0" width="130" height="20" uuid="e55bccf3-341b-41b0-9aac-55f437308c90"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{territory_name}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <summary>
+        <band height="90">
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="20" width="410" height="20" backcolor="#0066FF" uuid="039aef29-21d1-411d-b77d-20eecd45320a"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle"/>
+                <text><![CDATA[Обороты за период]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="40" width="510" height="20" forecolor="#000000" backcolor="#33CC00" uuid="facf1c94-8c1e-4914-86ba-bd5e47b46c89"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="false"/>
+                </textElement>
+                <text><![CDATA[Выплачено]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="60" width="410" height="20" forecolor="#000000" backcolor="#CC9900" uuid="4d19ef7f-b2ff-48c6-bd8b-e1bfa51aaf4b"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Сальдо конечное]]></text>
+            </staticText>
+            <textField pattern="###0.00">
+                <reportElement mode="Opaque" x="410" y="60" width="200" height="20" backcolor="#CC9900" uuid="1fb57f0a-74dc-4b46-bb72-446015cbc1b6">
+                    <propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["D"+($V{REPORT_COUNT}.intValue() + 3L)+"-" + "E"+($V{REPORT_COUNT}.intValue() + 3L)]]></propertyExpression>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$V{SALDO}]]></textFieldExpression>
+            </textField>
+            <textField pattern="###0.00">
+                <reportElement mode="Opaque" x="510" y="40" width="100" height="20" backcolor="#33CC00" uuid="0d9e0cf3-8f8e-4162-a05c-4c2137d16569"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$V{KV_S}]]></textFieldExpression>
+            </textField>
+            <textField pattern="###0.00">
+                <reportElement mode="Opaque" x="510" y="20" width="100" height="20" backcolor="#0066FF" uuid="a80959f0-082c-4e8b-b500-7c6163665d2f">
+                    <propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["SUBTOTAL(109,E3:E"+($V{REPORT_COUNT}.intValue() + 2L)+")"]]></propertyExpression>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$V{DEBIT_S}]]></textFieldExpression>
+            </textField>
+            <textField pattern="###0.00">
+                <reportElement mode="Opaque" x="410" y="20" width="100" height="20" backcolor="#0066FF" uuid="e8b14e18-9635-4b23-b8b5-367db9203fca">
+                    <propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["SUBTOTAL(109,D3:D"+($V{REPORT_COUNT}.intValue() + 2L)+")"]]></propertyExpression>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$V{CREDIT_S}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement mode="Opaque" x="610" y="40" width="850" height="20" backcolor="#33CC00" uuid="aca00706-9314-4a67-8d38-d1e5dddfd83f"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <text><![CDATA[]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="610" y="60" width="850" height="20" backcolor="#CC9900" uuid="50818140-eede-4abf-9165-e7af95017d76"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <text><![CDATA[]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="610" y="20" width="850" height="20" backcolor="#0066FF" uuid="e283a79f-2adf-43f1-92a3-876ce5594814"/>
+                <box>
+                    <topPen lineWidth="0.5"/>
+                    <leftPen lineWidth="0.5"/>
+                    <bottomPen lineWidth="0.5"/>
+                    <rightPen lineWidth="0.5"/>
+                </box>
+                <text><![CDATA[]]></text>
+            </staticText>
+        </band>
+    </summary>
+</jasperReport>

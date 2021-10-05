@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="testjrxml" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bcd7b896-5a47-4919-a9e4-955ae1288db2">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="local.xml"/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <parameter name="testParamString" class="java.lang.String">
+        <defaultValueExpression><![CDATA["test"]]></defaultValueExpression>
+    </parameter>
+    <parameter name="testParamNumber" class="java.lang.Long">
+        <defaultValueExpression><![CDATA[24523L]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[select text_data,num_data,id from test_table]]>
+    </queryString>
+    <field name="text_data" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.label" value="tag"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="bnk_currency"/>
+    </field>
+    <field name="num_data" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.label" value="name"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="bnk_currency"/>
+    </field>
+    <field name="id" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.label" value="id"/>
+        <property name="com.jaspersoft.studio.field.tree.path" value="bnk_currency"/>
+    </field>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="90" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="0" width="550" height="30" uuid="79cf93a7-7cc1-482a-ad62-13fdfcccbf0f"/>
+                <text><![CDATA[Hello Test]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="30" width="170" height="30" uuid="40cdb754-dfaa-4867-a1fa-0bd83cf04d5a"/>
+                <textFieldExpression><![CDATA[$P{testParamString}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="0" y="60" width="170" height="30" uuid="2cc7d495-3f16-4001-a6ef-113c80e7ee00"/>
+                <textFieldExpression><![CDATA[$P{testParamNumber}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="35" splitType="Stretch"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="0" width="100" height="30" uuid="a2b01db7-49c0-403c-a062-5576da7992e6">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fb431bc5-4312-434a-b24c-0f888a9053d6"/>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[tag]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="100" y="0" width="100" height="30" uuid="dd802cf1-c4c6-4f11-9a53-2e0d8aa7e673">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06e87a88-d472-403b-8a20-ef91f1aee85a"/>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="200" y="0" width="100" height="30" uuid="25888bf0-39a0-4bad-bcd2-8966a45daf4e">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0736177b-33f4-461e-a531-876d15a074a4"/>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[id]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="30" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="100" height="30" uuid="bf3b998a-e12c-42f0-b63e-094b253c7d4b">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fb431bc5-4312-434a-b24c-0f888a9053d6"/>
+                </reportElement>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA[$F{text_data}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="0" width="100" height="30" uuid="f78366c5-ca6e-4450-b85e-f5c1ab579cb5">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06e87a88-d472-403b-8a20-ef91f1aee85a"/>
+                </reportElement>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA[$F{num_data}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="200" y="0" width="100" height="30" uuid="295b98ae-5f39-4a26-be85-af204bf25a1f">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0736177b-33f4-461e-a531-876d15a074a4"/>
+                </reportElement>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="45" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="54" splitType="Stretch"/>
+    </pageFooter>
+    <summary>
+        <band height="42" splitType="Stretch"/>
+    </summary>
+</jasperReport>

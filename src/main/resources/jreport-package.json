@@ -1,0 +1,36 @@
+{
+  "connection": {
+    "url": "url",
+    "userName": "userName",
+    "password": "password"
+  },
+  "output": {
+    "destination": {
+      "file": {
+        "path": "path"
+      }
+    }
+  },
+  "reportList": [
+    {
+      "template": {
+        "source": {
+          "db": {
+            "tag": "tt"
+          }
+        }
+      },
+      "exportType": "XLSX"
+    },
+    {
+      "template": {
+        "source": {
+          "db": {
+            "tag": "tt"
+          }
+        }
+      },
+      "exportType": "DOC"
+    }
+  ]
+}

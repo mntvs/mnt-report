@@ -1,0 +1,107 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+interface Connectable {
+        -createConnection
+}
+
+class JRConnection {
+        -url : String;
+        -userName : String;
+        -password : String;
+        -dataSourceTag : String;
+        -connection : Connection;
+}
+
+JRConnection --> Connection
+
+interface JRExport {
+    +export()
+}
+
+class JRExportXSLX {
+   +export()
+}
+
+class JRExportPDF {
+   +export()
+}
+
+
+class JRExportDOC {
+   +export()
+}
+
+class JRExportNULL {
+   +export()
+}
+
+class JRPackage {
+        -jROutput : JROutput
+        -jRReportList : JReportList
+        -jRConnection : JRConnection;
+}
+
+JRPackage o-- JROutput
+JRPackage o-- JReportList
+JRPackage o-- JRConnection
+
+class JROutput {
+    -jROutputDestination : JROutputDestination
+}
+class JROutputDestination
+class JROutputDestinationFile
+class JROutputDestinationMail
+
+JROutputDestinationFile --|> JROutputDestination
+JROutputDestinationMail --|> JROutputDestination
+
+
+class JReport {
+ -jRTemplate : JRTemplate
+}
+
+JRExportType ..|> JRExport
+JRExportXSLX ..|> JRExport
+JRExportPDF ..|> JRExport
+JRExportDOC ..|> JRExport
+JRExportNULL ..|> JRExport
+
+JRExportType o.. JRExportXSLX
+JRExportType o.. JRExportPDF
+JRExportType o.. JRExportDOC
+
+class JReportList {
+    -jReportList : JReportList [0..*]
+}
+
+JReport ..> JRExportType
+
+JROutput --> JROutputDestination
+JReport --> JRTemplate
+
+JReportList o--JReport
+
+class JRTemplate {
+    - jRTemplateSource : JRTemplateSource
+}
+
+class JRTemplateSource
+
+class JRTemplateSourceDB
+class JRTemplateSourceFile
+class JRTemplateSourceTextBase64
+
+JRTemplateSourceDB --|> JRTemplateSource
+JRTemplateSourceFile --|> JRTemplateSource
+JRTemplateSourceTextBase64 --|> JRTemplateSource
+
+JRTemplate --> JRTemplateSource
+
+enum JRExportType {
+XLSX
+PDF
+NULL
+}
+
+@enduml

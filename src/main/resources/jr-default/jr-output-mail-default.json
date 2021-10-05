@@ -1,0 +1,7 @@
+{
+  "mail": {
+    "from": "megahitgroup1@gmail.com",
+    "host": "smtp.gmail.com",
+    "withAttachment": "true"
+  }
+}

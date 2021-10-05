@@ -1,0 +1,32 @@
+= mntReport framework
+
+Engine для встраивания функциональности jasper report в приложение.
+
+Используются управляющие файлы (json) для
+
+.Grocery list
+* Milk
+* Eggs
+* Bread
+
+.Lightweight Markup
+****
+Writing languages that let you type less and express more.
+****
+
+TIP: You can add line numbers to source listings by adding the word `numbered` in the attribute list after the language name.
+
+
+[source,java]
+----
+public class Person {
+  private String name;
+  public Person(String name) {
+    this.name = name;
+  }
+}
+----
+
+:home: https://example.org
+
+Go to the {home}[home page].

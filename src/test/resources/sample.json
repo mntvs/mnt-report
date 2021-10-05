@@ -1,0 +1,21 @@
+{
+  "id": 1234,
+  "name": "test name 1",
+  "properties": [
+    {
+      "key_a": 100
+    },
+    {
+      "key_b": ["string1","string2","string3"]
+    },
+    {
+      "key_c": {
+        "range": {
+          "min": 100,
+          "max": 1000
+        }
+      }
+    }
+  ]
+
+}
