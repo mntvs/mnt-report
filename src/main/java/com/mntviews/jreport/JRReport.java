@@ -18,7 +18,6 @@ import static com.mntviews.jreport.JRDefaultContext.checkIfNullThenDefault;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class JRReport {
 
-
     @JsonProperty("template")
     private final JRTemplate template;
 
@@ -27,7 +26,6 @@ public class JRReport {
 
     @JsonProperty("paramList")
     private final List<JRParam> paramList;
-
 
     @JsonProperty("fileName")
     private final String fileName;
@@ -78,7 +76,7 @@ public class JRReport {
                 connection = jRConnection.getConnection();
 
             if (jrBeforeReportAction != null)
-                jrBeforeReportAction.excecute(connection);
+                jrBeforeReportAction.execute(connection);
 
             properties.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
 

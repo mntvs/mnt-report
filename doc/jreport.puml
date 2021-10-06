@@ -58,7 +58,15 @@ JROutputDestinationMail --|> JROutputDestination
 
 
 class JReport {
- -jRTemplate : JRTemplate
+ -template : JRTemplate
+ -paramList : List<JRParam>
+ -exportType : JRExportType
+ -fileName : String
+ -jrBeforeReportAction : JRBeforeReportAction
+}
+
+interface JRBeforeReportAction {
+    +void execute(connection : Connection)
 }
 
 JRExportType ..|> JRExport
@@ -77,6 +85,10 @@ class JReportList {
 
 JReport ..> JRExportType
 
+JReport --> JRBeforeReportAction
+
+JReport o--JRParam
+
 JROutput --> JROutputDestination
 JReport --> JRTemplate
 
@@ -92,15 +104,31 @@ class JRTemplateSourceDB
 class JRTemplateSourceFile
 class JRTemplateSourceTextBase64
 
+abstract class JRParam {
+    - key : String
+}
+
+class JRParamValNumber {
+        - val : Long
+}
+class JRParamValString {
+        - val: String
+}
+
+JRParamValString --|> JRParam
+JRParamValNumber --|> JRParam
+
 JRTemplateSourceDB --|> JRTemplateSource
 JRTemplateSourceFile --|> JRTemplateSource
 JRTemplateSourceTextBase64 --|> JRTemplateSource
 
 JRTemplate --> JRTemplateSource
 
+
 enum JRExportType {
 XLSX
 PDF
+DOC
 NULL
 }
 
