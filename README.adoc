@@ -1,13 +1,17 @@
 = mntReport framework
 
-Engine для встраивания функциональности jasper report в приложение.
 
-Используются управляющие файлы (json) для
+The engine to embed jasper report to an application.
 
-.Grocery list
-* Milk
-* Eggs
-* Bread
+It is possible to use either control files in the json format in the declarative style or construct object from scratch.
+
+.Supported export types
+* Xlsx
+* Pdf
+* Doc
+
+Template source in jrxml format can be saved in database, file or received through command.
+
 
 .Lightweight Markup
 ****
@@ -16,15 +20,14 @@ Writing languages that let you type less and express more.
 
 TIP: You can add line numbers to source listings by adding the word `numbered` in the attribute list after the language name.
 
+Examples:
 
 [source,java]
 ----
-public class Person {
-  private String name;
-  public Person(String name) {
-    this.name = name;
-  }
-}
+
+JRReport report = JRReport.custom(JRTemplate.custom(templateSource).build()).exportType(JRExportType.XLSX).build();
+JRFile jrFile = reportXLSX.execute(null);
+
 ----
 
 :home: https://example.org
