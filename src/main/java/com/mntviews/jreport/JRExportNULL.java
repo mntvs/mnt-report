@@ -3,11 +3,10 @@ package com.mntviews.jreport;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 
 public class JRExportNULL implements JRExportAction {
     @Override
-    public ByteArrayOutputStream export(JasperPrint jasperPrint) {
+    public ByteArrayOutputStream export(JasperPrint jasperPrint, String configScript) {
         return null;
     }
 

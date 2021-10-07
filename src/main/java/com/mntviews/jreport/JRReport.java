@@ -30,16 +30,25 @@ public class JRReport {
     @JsonProperty("fileName")
     private final String fileName;
 
+    @JsonProperty("isZip")
+    private final Boolean isZip;
+
+    @JsonProperty("configScript")
+    private final String configScript;
+
     @JsonIgnore
     private final JRBeforeReportAction jrBeforeReportAction;
 
     public JRReport(Builder builder) {
+        JRReport jrReport = JRDefaultContext.getJrReport();
+        this.isZip = checkIfNullThenDefault(builder.isZip, jrReport == null ? null : jrReport.isZip);
+        this.configScript = checkIfNullThenDefault(builder.configScript, jrReport == null ? null : jrReport.configScript);
+        this.fileName = checkIfNullThenDefault(builder.fileName, jrReport == null ? null : jrReport.fileName);
+        this.jrBeforeReportAction = checkIfNullThenDefault(builder.jrBeforeReportAction, JRDefaultContext.getJrBeforeReportAction());
+        this.paramList = checkIfNullThenDefault(builder.paramList, jrReport == null ? null : List.copyOf(JRDefaultContext.getJrParamList()));
+
         this.template = builder.template;
         this.exportType = builder.exportType;
-        this.fileName = builder.fileName;
-        this.paramList = builder.paramList;
-
-        this.jrBeforeReportAction = checkIfNullThenDefault(builder.jrBeforeReportAction, JRDefaultContext.getJrBeforeReportAction());
     }
 
     public JRTemplate getTemplate() {
@@ -80,7 +89,7 @@ public class JRReport {
 
             properties.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
 
-            return JRFile.custom(exportType.export(JasperFillManager.fillReport(template.compile(), properties, connection)), fileName, exportType);
+            return JRFile.custom(exportType.export(JasperFillManager.fillReport(template.compile(), properties, connection),configScript), fileName, exportType);
         } catch (JRException | SQLException e) {
             throw new JRReportException(e);
         } finally {
@@ -91,14 +100,13 @@ public class JRReport {
     @JsonPOJOBuilder
     public static class Builder {
         private final JRTemplate template;
-
         private JRExportType exportType;
-
         private String fileName;
-
         private List<JRParam> paramList;
-
         private JRBeforeReportAction jrBeforeReportAction;
+        private Boolean isZip;
+        private String configScript;
+
 
         @JsonCreator
         public Builder(@JsonProperty("template") JRTemplate template) {
@@ -139,6 +147,19 @@ public class JRReport {
         @JsonProperty("paramList")
         public Builder paramList(List<JRParam> paramList) {
             this.paramList = paramList;
+            return this;
+        }
+
+
+        @JsonProperty("isZip")
+        public Builder isZip(Boolean isZip) {
+            this.isZip = isZip;
+            return this;
+        }
+
+        @JsonProperty("configScript")
+        public Builder configScript(String configScript) {
+            this.configScript = configScript;
             return this;
         }
 

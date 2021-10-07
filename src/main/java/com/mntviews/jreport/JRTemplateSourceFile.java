@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.mntviews.jreport.exception.JRTemplateException;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -46,16 +44,12 @@ public class JRTemplateSourceFile extends JRTemplateSource {
         @JsonProperty("path")
         private String path;
 
-        public Builder() {
-
-        }
-
-        public Builder setName(String name) {
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder setPath(String path) {
+        public Builder path(String path) {
             this.path = path;
             return this;
         }

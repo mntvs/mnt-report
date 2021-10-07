@@ -19,10 +19,10 @@ public class JRConnectionBaseTest extends JRDBBaseTest {
     protected void init() throws IOException, SQLException {
         super.init();
         jrConnection = JRConnection.custom()
-                .setUrl(postgresqlContainer.getJdbcUrl())
-                .setUserName(postgresqlContainer.getUsername())
-                .setPassword(postgresqlContainer.getPassword())
-                .setConnectionCreator((url, userName, password) -> {
+                .url(postgresqlContainer.getJdbcUrl())
+                .userName(postgresqlContainer.getUsername())
+                .password(postgresqlContainer.getPassword())
+                .connectionCreator((url, userName, password) -> {
                     Properties info = new Properties();
                     info.put("user", userName);
                     info.put("password", password);

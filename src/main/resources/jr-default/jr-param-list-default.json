@@ -1,0 +1,12 @@
+[
+    {
+      "type": "string",
+      "key": "key1",
+      "val": "String"
+    },
+    {
+      "type": "number",
+      "key": "key2",
+      "val": 123
+    }
+  ]

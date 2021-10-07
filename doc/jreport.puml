@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 
 interface Connectable {
-        -createConnection
+ +Connection createConnection(url : String, userName : String, password : String )
 }
 
 class JRConnection {
@@ -63,6 +63,7 @@ class JReport {
  -exportType : JRExportType
  -fileName : String
  -jrBeforeReportAction : JRBeforeReportAction
+ +JRFile execute(jRConnection : JRConnection)
 }
 
 interface JRBeforeReportAction {
@@ -100,7 +101,11 @@ class JRTemplate {
 
 class JRTemplateSource
 
-class JRTemplateSourceDB
+class JRTemplateSourceDB {
+    -templateDBExtractor : TemplateDBExtractor
+    -tag : String
+    connection : JRConnection
+}
 class JRTemplateSourceFile
 class JRTemplateSourceTextBase64
 
@@ -123,7 +128,7 @@ JRTemplateSourceFile --|> JRTemplateSource
 JRTemplateSourceTextBase64 --|> JRTemplateSource
 
 JRTemplate --> JRTemplateSource
-
+JRTemplateSourceDB <-- JRConnection
 
 enum JRExportType {
 XLSX
@@ -131,5 +136,29 @@ PDF
 DOC
 NULL
 }
+
+JRExportType ..|> JRExportAction
+
+interface TemplateDBExtractor {
+ +String findTemplateByTag(connection:Connection,tag:String);
+}
+
+JRTemplateSourceDB --> TemplateDBExtractor
+
+
+class JRFile {
+    -data : ByteArrayOutputStream
+    -name : String
+    -exportType : JRExportType
+}
+
+JRFile ..> JReport
+
+interface JRExportAction {
+    +ByteArrayOutputStream export(jasperPrint : JasperPrint)
+    +String getExtension()
+    +String getMimeType()
+}
+
 
 @enduml

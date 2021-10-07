@@ -27,21 +27,21 @@ public class JRPackageTest extends JRMailBaseTest {
 
         super.init();
         JROutputMail jrOutputMail = JROutputMail.custom()
-                .setBody("test")
-                .setSubject("test")
-                .setTo(TO_TEST)
-                .setFrom(FROM_TEST)
-                .setHost(HOST_TEST)
-                .setPort(PORT_TEST)
-                .setUserName(USERNAME_TEST)
-                .setPassword(PASSWORD_TEST).build();
+                .body("test")
+                .subject("test")
+                .to(TO_TEST)
+                .from(FROM_TEST)
+                .host(HOST_TEST)
+                .port(PORT_TEST)
+                .userName(USERNAME_TEST)
+                .password(PASSWORD_TEST).build();
 
 
         JRReport jrReport = JRReport.custom(JRTemplate
                 .custom(JRTemplateSourceFile
                         .custom()
-                        .setPath(TestContext.getResourcePath())
-                        .setName(TEMPLATE_FILENAME_TEST)
+                        .path(TestContext.getResourcePath())
+                        .name(TEMPLATE_FILENAME_TEST)
                         .build())
                 .build())
                 .exportType(JRExportType.XLSX)
@@ -52,15 +52,15 @@ public class JRPackageTest extends JRMailBaseTest {
 
 
         jrPackage = JRPackage.custom()
-                .setConnection(jrConnection)
-                .setOutput(List.of(jrOutputMail))
-                .setReportList(List.of(jrReport)).build();
+                .connection(jrConnection)
+                .outputList(List.of(jrOutputMail))
+                .reportList(List.of(jrReport)).build();
 
 
         JRReport jrReportSourceDB = JRReport.custom(JRTemplate
                 .custom(JRTemplateSourceDB
                         .custom(TEMPLATE_FILENAME_TEST)
-                        .withConnection(jrConnection)
+                        .connection(jrConnection)
                         .build())
                 .build())
                 .exportType(JRExportType.XLSX)
@@ -76,9 +76,9 @@ public class JRPackageTest extends JRMailBaseTest {
 
 
         jrPackageSourceDB = JRPackage.custom()
-                .setConnection(jrConnection)
-                .setOutput(List.of(jrOutputMail))
-                .setReportList(List.of(jrReportSourceDB)).build();
+                .connection(jrConnection)
+                .outputList(List.of(jrOutputMail))
+                .reportList(List.of(jrReportSourceDB)).build();
     }
 
     @Test

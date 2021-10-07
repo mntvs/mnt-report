@@ -5,15 +5,14 @@ import net.sf.jasperreports.engine.JasperPrint;
 import java.io.ByteArrayOutputStream;
 
 public enum JRExportType implements JRExportAction {
-    XLSX(new JRExportXLSX()) , PDF(new JRExportPDF()), DOC(new JRExportDOC()), NULL(new JRExportNULL()) , ZIP(new JRExportZIP()) ;
+    XLSX(new JRExportXLSX()) , PDF(new JRExportPDF()), DOC(new JRExportDOC()), NULL(new JRExportNULL());
 
     private final JRExportAction jrExportAction;
 
     @Override
-    public ByteArrayOutputStream export(JasperPrint jasperPrint) {
-        return jrExportAction.export(jasperPrint);
+    public ByteArrayOutputStream export(JasperPrint jasperPrint, String configScript) {
+        return jrExportAction.export(jasperPrint, configScript);
     }
-
 
     @Override
     public String getExtension() {

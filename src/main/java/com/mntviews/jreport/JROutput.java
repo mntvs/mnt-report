@@ -1,10 +1,8 @@
 package com.mntviews.jreport;
 
-
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 @JsonTypeInfo(
@@ -14,6 +12,6 @@ import java.util.List;
         @JsonSubTypes.Type(value = JROutputFile.class, name = "file"),
         @JsonSubTypes.Type(value = JROutputMail.class, name = "mail")
 })
-abstract public class JROutput {
+public abstract class JROutput {
     public abstract void execute(List<JRFile> fileList);
 }

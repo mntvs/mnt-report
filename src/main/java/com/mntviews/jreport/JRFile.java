@@ -1,7 +1,6 @@
 package com.mntviews.jreport;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Optional;
 
 public class JRFile {
     private final ByteArrayOutputStream data;

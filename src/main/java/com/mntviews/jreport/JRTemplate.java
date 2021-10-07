@@ -10,7 +10,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 @JsonDeserialize(builder = JRTemplate.Builder.class)
@@ -39,8 +38,7 @@ public class JRTemplate {
 
     public JasperReport compile() {
         try {
-            JasperReport jasperReport = JasperCompileManager.compileReport(load());
-            return jasperReport;
+            return JasperCompileManager.compileReport(load());
         } catch (JRException e) {
             throw new JRReportException(e);
         }
@@ -49,7 +47,7 @@ public class JRTemplate {
 
     @JsonPOJOBuilder
     public static final class Builder {
-        final private JRTemplateSource templateSource;
+        private final JRTemplateSource templateSource;
 
         @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
         public Builder(@JsonProperty("source") JRTemplateSource templateSource) {

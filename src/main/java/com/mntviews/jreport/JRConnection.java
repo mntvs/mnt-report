@@ -13,6 +13,7 @@ import java.sql.SQLException;
 @JsonDeserialize(builder = JRConnection.Builder.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class JRConnection {
+
     @JsonIgnore
     private final Connection connection;
     @JsonIgnore
@@ -25,6 +26,16 @@ public class JRConnection {
     private final String password;
     @JsonProperty("dataSourceTag")
     private final String dataSourceTag;
+
+    private JRConnection(Builder builder) {
+        this.connection = builder.connection;
+        this.connectionCreator = builder.connectionCreator;
+        this.url = builder.url;
+        this.userName = builder.userName;
+        this.password = builder.password;
+        this.dataSourceTag = builder.dataSourceTag;
+    }
+
 
     @JsonIgnore
     public Connectable getConnectionCreator() {
@@ -47,15 +58,6 @@ public class JRConnection {
         return dataSourceTag;
     }
 
-    private JRConnection(Builder builder) {
-        this.connection = builder.connection;
-        this.connectionCreator = builder.connectionCreator;
-        this.url = builder.url;
-        this.userName = builder.userName;
-        this.password = builder.password;
-        this.dataSourceTag = builder.dataSourceTag;
-    }
-
     @JsonIgnore
     public Connection getConnection() {
         if (connection != null)
@@ -71,20 +73,19 @@ public class JRConnection {
         }
     }
 
-    static public Builder custom() {
+    public static Builder custom() {
         return new JRConnection.Builder();
     }
 
-    static public Builder custom(JRConnection jrConnection) {
+    public static Builder custom(JRConnection jrConnection) {
         return new JRConnection.Builder()
-                .setConnection(jrConnection.getConnection())
-                .setUrl(jrConnection.getUrl())
-                .setUserName(jrConnection.getUserName())
-                .setPassword(jrConnection.getPassword())
-                .setDataSourceTag(jrConnection.getDataSourceTag())
-                .setConnectionCreator(jrConnection.getConnectionCreator());
+                .connection(jrConnection.getConnection())
+                .url(jrConnection.getUrl())
+                .userName(jrConnection.getUserName())
+                .password(jrConnection.getPassword())
+                .dataSourceTag(jrConnection.getDataSourceTag())
+                .connectionCreator(jrConnection.getConnectionCreator());
     }
-
 
     @JsonPOJOBuilder
     public static class Builder {
@@ -106,41 +107,42 @@ public class JRConnection {
         }
 
         @JsonIgnore
-        public Builder setConnection(Connection connection) {
+        public Builder connection(Connection connection) {
             this.connection = connection;
             return this;
         }
 
         @JsonProperty("url")
-        public Builder setUrl(String url) {
+        public Builder url(String url) {
             this.url = url;
             return this;
         }
 
         @JsonProperty("userName")
-        public Builder setUserName(String userName) {
+        public Builder userName(String userName) {
             this.userName = userName;
             return this;
         }
 
         @JsonProperty("password")
-        public Builder setPassword(String password) {
+        public Builder password(String password) {
             this.password = password;
             return this;
         }
 
         @JsonProperty("dataSourceTag")
-        public Builder setDataSourceTag(String dataSourceTag) {
+        public Builder dataSourceTag(String dataSourceTag) {
             this.dataSourceTag = dataSourceTag;
             return this;
         }
 
-        public Builder setConnectionCreator(Connectable connectionCreator) {
+        public Builder connectionCreator(Connectable connectionCreator) {
             if (this.connection == null) {
                 this.connectionCreator = connectionCreator;
             }
             return this;
         }
     }
+
 
 }

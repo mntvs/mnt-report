@@ -1,6 +1,5 @@
 = mntReport framework
 
-
 The engine to embed jasper report to an application.
 
 It is possible to use either control files in the json format in the declarative style or construct object from scratch.

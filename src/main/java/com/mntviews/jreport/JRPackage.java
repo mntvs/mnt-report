@@ -27,12 +27,15 @@ public class JRPackage {
     @JsonProperty("connection")
     private final JRConnection connection;
 
-    final static private ObjectMapper objectMapper = new ObjectMapper();
-    ;
+    @JsonProperty("isZip")
+    private final Boolean isZip;
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     private JRPackage(Builder builder) {
         this.outputList = builder.outputList;
         this.reportList = builder.reportList;
+        this.isZip = builder.isZip;
         this.connection = checkIfNullThenDefault(builder.connection, JRDefaultContext.getJrConnection());
     }
 
@@ -68,6 +71,7 @@ public class JRPackage {
         private List<JROutput> outputList;
         private List<JRReport> reportList;
         private JRConnection connection;
+        private Boolean isZip;
 
         Builder() {
         }
@@ -77,20 +81,26 @@ public class JRPackage {
         }
 
         @JsonProperty("outputList")
-        public Builder setOutput(List<JROutput> outputList) {
+        public Builder outputList(List<JROutput> outputList) {
             this.outputList = outputList;
             return this;
         }
 
         @JsonProperty("reportList")
-        public Builder setReportList(List<JRReport> reportList) {
+        public Builder reportList(List<JRReport> reportList) {
             this.reportList = reportList;
             return this;
         }
 
         @JsonProperty("connection")
-        public Builder setConnection(JRConnection connection) {
+        public Builder connection(JRConnection connection) {
             this.connection = connection;
+            return this;
+        }
+
+        @JsonProperty("isZip")
+        public Builder isZip(Boolean isZip) {
+            this.isZip = isZip;
             return this;
         }
 

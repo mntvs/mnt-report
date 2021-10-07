@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 
-
 @JsonDeserialize(builder = JRTemplateSourceDB.Builder.class)
 public class JRTemplateSourceDB extends JRTemplateSource {
     @JsonProperty("tag")
@@ -42,12 +41,12 @@ public class JRTemplateSourceDB extends JRTemplateSource {
         this.templateDBExtractor = builder.templateDBExtractor;
     }
 
-    static public Builder custom(String tag) {
+    public static Builder custom(String tag) {
         return new Builder(tag);
     }
 
-    static public Builder custom(JRTemplateSourceDB jrTemplateSourceDB) {
-        return new Builder(jrTemplateSourceDB.getTag()).withConnection(jrTemplateSourceDB.getJRConnection()).withTemplateDBExtractor(jrTemplateSourceDB.getTemplateDBExtractor());
+    public static Builder custom(JRTemplateSourceDB jrTemplateSourceDB) {
+        return new Builder(jrTemplateSourceDB.getTag()).connection(jrTemplateSourceDB.getJRConnection()).templateDBExtractor(jrTemplateSourceDB.getTemplateDBExtractor());
     }
 
     @Override
@@ -90,13 +89,13 @@ public class JRTemplateSourceDB extends JRTemplateSource {
         }
 
         @JsonProperty("connection")
-        public Builder withConnection(JRConnection connection) {
+        public Builder connection(JRConnection connection) {
             this.connection = connection;
             return this;
         }
 
         @JsonIgnore
-        public Builder withTemplateDBExtractor(TemplateDBExtractor templateDBExtractor) {
+        public Builder templateDBExtractor(TemplateDBExtractor templateDBExtractor) {
             this.templateDBExtractor = templateDBExtractor;
             return this;
         }

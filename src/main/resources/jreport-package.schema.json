@@ -198,6 +198,12 @@
                 "val"
               ]
             }
+          },
+          "isZip": {
+            "type": "boolean"
+          },
+          "configScript": {
+            "type": "string"
           }
         },
         "required": [
@@ -207,6 +213,15 @@
         "additionalProperties": false
       },
       "additionalProperties": false
+    },
+    "isZip": {
+      "type": "boolean"
     }
-  }
+  },
+  "required": [
+    "connection",
+    "outputList",
+    "reportList"
+  ],
+  "additionalProperties": false
 }

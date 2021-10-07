@@ -25,7 +25,7 @@ public class JROutputFileTest {
 
     @BeforeEach
     public void init(@TempDir Path tempDir) {
-        outputFile = JROutputFile.custom().setPath(tempDir.toString()).build();
+        outputFile = JROutputFile.custom().path(tempDir.toString()).build();
     }
 
     /**

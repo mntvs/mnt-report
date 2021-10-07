@@ -30,22 +30,24 @@ public class JROutputFile extends JROutput {
         return new Builder();
     }
 
+    private void outputFile(JRFile file) throws IOException {
+        try (OutputStream outputStream = new FileOutputStream(path + "/" + file.getFileName())) {
+            file.getData().writeTo(outputStream);
+        } catch (Exception e) {
+            throw new JROutputException(e);
+        } finally {
+            if (file.getData() != null)
+                file.getData().close();
+        }
+    }
+
     @Override
     public void execute(List<JRFile> fileList) {
-
         for (JRFile file : fileList) {
-            try (OutputStream outputStream = new FileOutputStream(path + "/" + file.getFileName())) {
-                file.getData().writeTo(outputStream);
-            } catch (Exception e) {
+            try {
+                outputFile(file);
+            } catch (IOException e) {
                 throw new JROutputException(e);
-            } finally {
-                if (file.getData() != null) {
-                    try {
-                        file.getData().close();
-                    } catch (IOException e) {
-                        throw new JROutputException(e);
-                    }
-                }
             }
         }
     }
@@ -55,7 +57,7 @@ public class JROutputFile extends JROutput {
         private String path;
 
         @JsonProperty("path")
-        public Builder setPath(String path) {
+        public Builder path(String path) {
             this.path = path;
             return this;
         }

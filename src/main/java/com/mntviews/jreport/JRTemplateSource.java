@@ -3,7 +3,6 @@ package com.mntviews.jreport;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 @JsonTypeInfo(
@@ -13,7 +12,6 @@ import java.io.InputStream;
         @JsonSubTypes.Type(value = JRTemplateSourceDB.class, name = "db"),
         @JsonSubTypes.Type(value = JRTemplateSourceFile.class, name = "file")
 })
-abstract public class JRTemplateSource {
+public abstract class JRTemplateSource {
     abstract InputStream load();
-
 }

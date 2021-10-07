@@ -1,24 +1,22 @@
 package com.mntviews.jreport;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.mntviews.jreport.exception.JROutputException;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.io.*;
+import javax.mail.util.ByteArrayDataSource;
 import java.util.List;
 import java.util.Properties;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.util.ByteArrayDataSource;
 
-import static com.mntviews.jreport.JRDefaultContext.*;
+import static com.mntviews.jreport.JRDefaultContext.checkIfNullThenDefault;
 
 @JsonDeserialize(builder = JROutputMail.Builder.class)
 public class JROutputMail extends JROutput {
@@ -98,33 +96,6 @@ public class JROutputMail extends JROutput {
         return new Builder();
     }
 
-    private static class PipedDataSource implements DataSource {
-        InputStream in;
-        String type;
-
-        public PipedDataSource(InputStream in, String type) {
-            this.in = in;
-            this.type = type;
-        }
-
-        public String getContentType() {
-            return type;
-        }
-
-        public InputStream getInputStream() {
-            return in;
-        }
-
-        public String getName() {
-            return "DataSource";
-        }
-
-        public OutputStream getOutputStream() throws IOException {
-            throw new IOException("No OutputStream");
-        }
-    }
-
-
     @Override
     public void execute(List<JRFile> fileList) {
         Properties props = new Properties();
@@ -136,6 +107,7 @@ public class JROutputMail extends JROutput {
 
         Session session = Session.getInstance(props,
                 new Authenticator() {
+                    @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(userName, password);
                     }
@@ -152,8 +124,7 @@ public class JROutputMail extends JROutput {
             Multipart multipart = new MimeMultipart();
 
 
-           // if (withAttachment!=null && withAttachment) {
-            if (true) {
+            if (withAttachment) {
                 BodyPart messageBodyPart = new MimeBodyPart();
                 // Now set the actual message
                 messageBodyPart.setText(body);
@@ -164,26 +135,6 @@ public class JROutputMail extends JROutput {
                 for (JRFile file : fileList) {
 
                     messageBodyPart = new MimeBodyPart();
-
-                /*PipedInputStream in = new PipedInputStream();
-                final PipedOutputStream out = new PipedOutputStream(in);
-                ((Runnable) () -> {
-                    try {
-                        file.getData().writeTo(out);
-                    } catch (IOException e) {
-                        throw new JROutputException(e);
-                    } finally {
-                        if (out != null) {
-                            try {
-                                out.close();
-                            } catch (IOException e) {
-                                throw new JROutputException(e);
-                            }
-                        }
-                    }
-                }).run();*/
-
-//                DataSource source = new PipedDataSource(in, file.getMimeType());
                     DataSource source = new ByteArrayDataSource(file.getData().toByteArray(), file.getMimeType());
 
                     messageBodyPart.setDataHandler(new DataHandler(source));
@@ -194,12 +145,7 @@ public class JROutputMail extends JROutput {
                 // Send the complete message parts
                 message.setContent(multipart);
             }
-            /*SMTPTransport transport = new SMTPTransport(session, null);
-            transport.connect(this.host, this.userName, null);
 
-            transport.issueCommand("AUTH XOAUTH2 " + new String(BASE64EncoderStream.encode(String.format("user=%s\1auth=Bearer %s\1\1", this.userName, smtpUserAccessToken).getBytes())), 235);
-            transport.sendMessage(message, message.getAllRecipients());
-            */
             Transport.send(message);
         } catch (Exception e) {
             throw new JROutputException(e);
@@ -220,62 +166,57 @@ public class JROutputMail extends JROutput {
         private String port;
         private Boolean withAttachment;
 
-        @JsonCreator
-        public Builder() {
-
-        }
-
         @JsonProperty("from")
-        public Builder setFrom(String from) {
+        public Builder from(String from) {
             this.from = from;
             return this;
         }
 
         @JsonProperty("to")
-        public Builder setTo(String to) {
+        public Builder to(String to) {
             this.to = to;
             return this;
         }
 
         @JsonProperty("subject")
-        public Builder setSubject(String subject) {
+        public Builder subject(String subject) {
             this.subject = subject;
             return this;
         }
 
         @JsonProperty("body")
-        public Builder setBody(String body) {
+        public Builder body(String body) {
             this.body = body;
             return this;
         }
 
         @JsonProperty("host")
-        public Builder setHost(String host) {
+        public Builder host(String host) {
             this.host = host;
             return this;
         }
 
         @JsonProperty("userName")
-        public Builder setUserName(String userName) {
+        public Builder userName(String userName) {
             this.userName = userName;
             return this;
         }
 
         @JsonProperty("password")
-        public Builder setPassword(String password) {
+        public Builder password(String password) {
             this.password = password;
             return this;
         }
 
 
         @JsonProperty("port")
-        public Builder setPort(String port) {
+        public Builder port(String port) {
             this.port = port;
             return this;
         }
 
         @JsonProperty("withAttachment")
-        public Builder setWithAttachment(Boolean withAttachment) {
+        public Builder withAttachment(Boolean withAttachment) {
             this.withAttachment = withAttachment;
             return this;
         }

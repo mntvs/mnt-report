@@ -1,0 +1,4 @@
+{
+  "isZip": false,
+  "configScript": "if (binding.hasVariable('confXlsx')) confXlsx.setMaxRowsPerSheet(100);"
+}

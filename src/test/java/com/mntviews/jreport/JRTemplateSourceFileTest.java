@@ -22,7 +22,7 @@ public class JRTemplateSourceFileTest {
     @BeforeEach
     void init() throws URISyntaxException, IOException {
 
-        templateSourceFile = JRTemplateSourceFile.custom().setPath(TestContext.getResourcePath()).setName(TEST_JRXML).build();
+        templateSourceFile = JRTemplateSourceFile.custom().path(TestContext.getResourcePath()).name(TEST_JRXML).build();
 
     }
 

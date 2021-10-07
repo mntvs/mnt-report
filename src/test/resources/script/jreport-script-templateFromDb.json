@@ -43,7 +43,10 @@
         }
       ],
       "exportType": "PDF",
-      "fileName": "test"
+      "fileName": "test",
+      "isZip": true,
+      "configScript" : "confXlsx.setMaxRowsPerSheet(100);"
     }
-  ]
+  ],
+  "isZip": false
 }

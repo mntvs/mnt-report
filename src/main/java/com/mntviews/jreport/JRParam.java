@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = JRParamValString.class),
         @JsonSubTypes.Type(value = JRParamValNumber.class)
 })
-abstract public class JRParam {
+public abstract class JRParam {
     @JsonProperty("key")
-    final private String key;
+    private final String key;
 
     protected JRParam(String key) {
         this.key = key;
@@ -22,5 +22,5 @@ abstract public class JRParam {
     }
 
 
-    abstract public Object getVal();
+    public abstract Object getVal();
 }

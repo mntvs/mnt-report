@@ -10,16 +10,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class JRSchemaValidator {
-    final static private String SCHEMA_FILE_NAME = "jreport-package.schema.json";
-    final static private JsonSchema schema;
-    final static private ObjectMapper objectMapper = new ObjectMapper();;
+    private static final String SCHEMA_FILE_NAME = "jreport-package.schema.json";
+    private static final JsonSchema schema;
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
+    private JRSchemaValidator() {
+    }
 
     static void validate(JsonNode data) {
         Set<ValidationMessage> errors = null;
         errors = schema.validate(data);
-        if (errors != null && errors.size() > 0) {
-            throw new JReportSchemaValidatorException(errors.stream().map(f -> f.getMessage()).collect(Collectors.joining(System.lineSeparator())));
+        if (errors != null && !errors.isEmpty()) {
+            throw new JReportSchemaValidatorException(errors.stream().map(ValidationMessage::getMessage).collect(Collectors.joining(System.lineSeparator())));
         }
     }
 

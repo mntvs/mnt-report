@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("string")
-final public class JRParamValString extends JRParam {
+public final class JRParamValString extends JRParam {
     @JsonProperty("val")
-    final private String val;
+    private final String val;
 
     @Override
     public Object getVal() {
