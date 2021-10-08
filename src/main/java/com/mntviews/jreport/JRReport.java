@@ -127,38 +127,38 @@ public class JRReport {
             return this;
         }
 
-        public Builder exportType(JRExportType exportType) {
+        public Builder withExportType(JRExportType exportType) {
             this.exportType = exportType;
             return this;
         }
 
-        public Builder beforeReportAction(JRBeforeReportAction jrBeforeReportAction) {
+        public Builder withBeforeReportAction(JRBeforeReportAction jrBeforeReportAction) {
             this.jrBeforeReportAction = jrBeforeReportAction;
             return this;
         }
 
 
         @JsonProperty("fileName")
-        public Builder fileName(String fileName) {
+        public Builder withFileName(String fileName) {
             this.fileName = fileName;
             return this;
         }
 
         @JsonProperty("paramList")
-        public Builder paramList(List<JRParam> paramList) {
+        public Builder withParamList(List<JRParam> paramList) {
             this.paramList = paramList;
             return this;
         }
 
 
         @JsonProperty("isZip")
-        public Builder isZip(Boolean isZip) {
+        public Builder withIsZip(Boolean isZip) {
             this.isZip = isZip;
             return this;
         }
 
         @JsonProperty("configScript")
-        public Builder configScript(String configScript) {
+        public Builder withConfigScript(String configScript) {
             this.configScript = configScript;
             return this;
         }

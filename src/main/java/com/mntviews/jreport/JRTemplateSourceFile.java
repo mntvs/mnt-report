@@ -44,12 +44,12 @@ public class JRTemplateSourceFile extends JRTemplateSource {
         @JsonProperty("path")
         private String path;
 
-        public Builder name(String name) {
+        public Builder withName(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder path(String path) {
+        public Builder withPath(String path) {
             this.path = path;
             return this;
         }

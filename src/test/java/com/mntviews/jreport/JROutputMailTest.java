@@ -28,14 +28,14 @@ public class  JROutputMailTest extends JRMailBaseTest {
     @BeforeEach
     public void init() {
         jrOutputMail = JROutputMail.custom()
-                .body(BODY_TEST)
-                .subject(SUBJECT_TEST)
-                .to(TO_TEST)
-                .from(FROM_TEST)
-                .host(HOST_TEST)
-                .port(PORT_TEST)
-                .userName(USERNAME_TEST)
-                .password(PASSWORD_TEST).build();
+                .withBody(BODY_TEST)
+                .withSubject(SUBJECT_TEST)
+                .withTo(TO_TEST)
+                .withFrom(FROM_TEST)
+                .withHost(HOST_TEST)
+                .withPort(PORT_TEST)
+                .withUserName(USERNAME_TEST)
+                .withPassword(PASSWORD_TEST).build();
     }
 
 

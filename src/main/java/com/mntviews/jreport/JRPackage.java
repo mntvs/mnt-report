@@ -81,25 +81,25 @@ public class JRPackage {
         }
 
         @JsonProperty("outputList")
-        public Builder outputList(List<JROutput> outputList) {
+        public Builder withOutputList(List<JROutput> outputList) {
             this.outputList = outputList;
             return this;
         }
 
         @JsonProperty("reportList")
-        public Builder reportList(List<JRReport> reportList) {
+        public Builder withReportList(List<JRReport> reportList) {
             this.reportList = reportList;
             return this;
         }
 
         @JsonProperty("connection")
-        public Builder connection(JRConnection connection) {
+        public Builder withConnection(JRConnection connection) {
             this.connection = connection;
             return this;
         }
 
         @JsonProperty("isZip")
-        public Builder isZip(Boolean isZip) {
+        public Builder withIsZip(Boolean isZip) {
             this.isZip = isZip;
             return this;
         }

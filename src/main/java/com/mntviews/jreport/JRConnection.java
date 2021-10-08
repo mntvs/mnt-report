@@ -79,12 +79,12 @@ public class JRConnection {
 
     public static Builder custom(JRConnection jrConnection) {
         return new JRConnection.Builder()
-                .connection(jrConnection.getConnection())
-                .url(jrConnection.getUrl())
-                .userName(jrConnection.getUserName())
-                .password(jrConnection.getPassword())
-                .dataSourceTag(jrConnection.getDataSourceTag())
-                .connectionCreator(jrConnection.getConnectionCreator());
+                .withConnection(jrConnection.getConnection())
+                .withUrl(jrConnection.getUrl())
+                .withUserName(jrConnection.getUserName())
+                .withPassword(jrConnection.getPassword())
+                .withDataSourceTag(jrConnection.getDataSourceTag())
+                .withConnectionCreator(jrConnection.getConnectionCreator());
     }
 
     @JsonPOJOBuilder
@@ -107,36 +107,36 @@ public class JRConnection {
         }
 
         @JsonIgnore
-        public Builder connection(Connection connection) {
+        public Builder withConnection(Connection connection) {
             this.connection = connection;
             return this;
         }
 
         @JsonProperty("url")
-        public Builder url(String url) {
+        public Builder withUrl(String url) {
             this.url = url;
             return this;
         }
 
         @JsonProperty("userName")
-        public Builder userName(String userName) {
+        public Builder withUserName(String userName) {
             this.userName = userName;
             return this;
         }
 
         @JsonProperty("password")
-        public Builder password(String password) {
+        public Builder withPassword(String password) {
             this.password = password;
             return this;
         }
 
         @JsonProperty("dataSourceTag")
-        public Builder dataSourceTag(String dataSourceTag) {
+        public Builder withDataSourceTag(String dataSourceTag) {
             this.dataSourceTag = dataSourceTag;
             return this;
         }
 
-        public Builder connectionCreator(Connectable connectionCreator) {
+        public Builder withConnectionCreator(Connectable connectionCreator) {
             if (this.connection == null) {
                 this.connectionCreator = connectionCreator;
             }

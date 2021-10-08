@@ -23,7 +23,7 @@ public class JRTemplateSourceDBTest extends JRConnectionBaseTest {
         String testTemplate = getStringFromResource(TEMPLATE_FILENAME_TEST);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(jrConnection.getConnection());
         jdbcTemplate.execute("insert into report_template (tag,data) values (?,?)",REPORT_TAG_TEST, testTemplate);
-        templateSourceDB = JRTemplateSourceDB.custom(REPORT_TAG_TEST).connection(jrConnection).build();
+        templateSourceDB = JRTemplateSourceDB.custom(REPORT_TAG_TEST).withConnection(jrConnection).build();
     }
 
     @Test

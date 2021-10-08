@@ -40,8 +40,8 @@ public class JROutputMail extends JROutput {
     @JsonProperty("port")
     private final String port;
 
-    @JsonProperty("withAttachment")
-    private final Boolean withAttachment;
+    @JsonProperty("isAttachment")
+    private final Boolean isAttachment;
 
     public String getPort() {
         return port;
@@ -75,8 +75,8 @@ public class JROutputMail extends JROutput {
         return password;
     }
 
-    public Boolean getWithAttachment() {
-        return withAttachment;
+    public Boolean getIsAttachment() {
+        return isAttachment;
     }
 
     private JROutputMail(Builder builder) {
@@ -89,7 +89,7 @@ public class JROutputMail extends JROutput {
         this.userName = checkIfNullThenDefault(builder.userName, jrOutputMail == null ? null : jrOutputMail.userName);
         this.password = checkIfNullThenDefault(builder.password, jrOutputMail == null ? null : jrOutputMail.password);
         this.port = checkIfNullThenDefault(builder.port, jrOutputMail == null ? null : jrOutputMail.port);
-        this.withAttachment = checkIfNullThenDefault(builder.withAttachment, jrOutputMail == null ? null : jrOutputMail.withAttachment);
+        this.isAttachment = checkIfNullThenDefault(builder.isAttachment, jrOutputMail == null ? null : jrOutputMail.isAttachment);
     }
 
     public static Builder custom() {
@@ -124,7 +124,7 @@ public class JROutputMail extends JROutput {
             Multipart multipart = new MimeMultipart();
 
 
-            if (withAttachment) {
+            if (isAttachment) {
                 BodyPart messageBodyPart = new MimeBodyPart();
                 // Now set the actual message
                 messageBodyPart.setText(body);
@@ -164,60 +164,60 @@ public class JROutputMail extends JROutput {
         private String userName;
         private String password;
         private String port;
-        private Boolean withAttachment;
+        private Boolean isAttachment;
 
         @JsonProperty("from")
-        public Builder from(String from) {
+        public Builder withFrom(String from) {
             this.from = from;
             return this;
         }
 
         @JsonProperty("to")
-        public Builder to(String to) {
+        public Builder withTo(String to) {
             this.to = to;
             return this;
         }
 
         @JsonProperty("subject")
-        public Builder subject(String subject) {
+        public Builder withSubject(String subject) {
             this.subject = subject;
             return this;
         }
 
         @JsonProperty("body")
-        public Builder body(String body) {
+        public Builder withBody(String body) {
             this.body = body;
             return this;
         }
 
         @JsonProperty("host")
-        public Builder host(String host) {
+        public Builder withHost(String host) {
             this.host = host;
             return this;
         }
 
         @JsonProperty("userName")
-        public Builder userName(String userName) {
+        public Builder withUserName(String userName) {
             this.userName = userName;
             return this;
         }
 
         @JsonProperty("password")
-        public Builder password(String password) {
+        public Builder withPassword(String password) {
             this.password = password;
             return this;
         }
 
 
         @JsonProperty("port")
-        public Builder port(String port) {
+        public Builder withPort(String port) {
             this.port = port;
             return this;
         }
 
-        @JsonProperty("withAttachment")
-        public Builder withAttachment(Boolean withAttachment) {
-            this.withAttachment = withAttachment;
+        @JsonProperty("isAttachment")
+        public Builder withIsAttachment(Boolean isAttachment) {
+            this.isAttachment = isAttachment;
             return this;
         }
 

@@ -23,7 +23,7 @@ public class JRReportTest {
 
     @BeforeEach
     void Init() {
-        reportXLSX = JRReport.custom(JRTemplate.custom(templateSource).build()).exportType(JRExportType.XLSX).build();
+        reportXLSX = JRReport.custom(JRTemplate.custom(templateSource).build()).withExportType(JRExportType.XLSX).build();
         when(templateSource.load()).thenReturn(new ByteArrayInputStream(TestContext.getTestTemplate().getBytes(StandardCharsets.UTF_8)));
     }
     @Test

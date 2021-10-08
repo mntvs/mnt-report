@@ -47,7 +47,7 @@ using script file:
         "userName": "megahitgroup1@gmail.com",
         "password": "123",
         "port": "2525",
-        "withAttachment": true
+        "isAttachment": true
       }
     }
   ],
@@ -97,34 +97,34 @@ object can be constructed in the java code with builder patterns
 [source,java]
 ----
 
- JROutputMail jrOutputMail = JROutputMail.custom()
-                .body("test")
-                .subject("test")
-                .to("a@b.com")
-                .from("c@d.com")
-                .host("127.0.0.1")
-                .port("2525")
-                .userName("c@d.com")
-                .password("secret").build();
+        JROutputMail jrOutputMail = JROutputMail.custom()
+                .withBody("test")
+                .withSubject("test")
+                .withTo("a@b.com")
+                .withFrom("c@d.com")
+                .withHost("127.0.0.1")
+                .withPort("2525")
+                .withUserName("c@d.com")
+                .withPassword("secret").build();
 
         JRReport jrReport = JRReport.custom(JRTemplate
                         .custom(JRTemplateSourceFile
                                 .custom()
-                                .path("/tmp/")
-                                .name("tt.jrxml")
+                                .withPath("/tmp/")
+                                .withName("tt.jrxml")
                                 .build())
                         .build())
-                .exportType(JRExportType.XLSX)
-                .fileName("test")
-                .paramList(List.of(JRParamValString.createOf("testParamString", "qwerty")
+                .withExportType(JRExportType.XLSX)
+                .withFileName("test")
+                .withParamList(List.of(JRParamValString.createOf("testParamString", "qwerty")
                         , JRParamValNumber.createOf("testParamNumber", 34567785L)))
                 .build();
 
         JRConnection jrConnection = JRConnection.custom()
-                .url(postgresqlContainer.getJdbcUrl())
-                .userName(postgresqlContainer.getUsername())
-                .password(postgresqlContainer.getPassword())
-                .connectionCreator((url, userName, password) -> {
+                .withUrl(postgresqlContainer.getJdbcUrl())
+                .withUserName(postgresqlContainer.getUsername())
+                .withPassword(postgresqlContainer.getPassword())
+                .withConnectionCreator((url, userName, password) -> {
                     Properties info = new Properties();
                     info.put("user", userName);
                     info.put("password", password);
@@ -133,9 +133,9 @@ object can be constructed in the java code with builder patterns
                 .build();
 
         jrPackage = JRPackage.custom()
-                .connection(jrConnection)
-                .outputList(List.of(jrOutputMail))
-                .reportList(List.of(jrReport)).build();
+                .withConnection(jrConnection)
+                .withOutputList(List.of(jrOutputMail))
+                .withReportList(List.of(jrReport)).build();
 
         jrPackage.execute();
 ----

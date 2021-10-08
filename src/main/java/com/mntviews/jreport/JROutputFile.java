@@ -57,7 +57,7 @@ public class JROutputFile extends JROutput {
         private String path;
 
         @JsonProperty("path")
-        public Builder path(String path) {
+        public Builder withPath(String path) {
             this.path = path;
             return this;
         }

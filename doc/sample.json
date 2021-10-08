@@ -10,7 +10,7 @@
         "userName": "megahitgroup1@gmail.com",
         "password": "123",
         "port": "2525",
-        "withAttachment": true
+        "isAttachment": true
       }
     }
   ],

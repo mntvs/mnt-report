@@ -49,7 +49,7 @@ public class JRDefaultContext {
         JRDefaultContext.jrConnection = jrConnection;
     }
     public static void setDefaultTemplateDBExtractor(TemplateDBExtractor templateDBExtractor) {
-        jrTemplateSourceDB = JRTemplateSourceDB.custom(jrTemplateSourceDB).templateDBExtractor(templateDBExtractor).build();
+        jrTemplateSourceDB = JRTemplateSourceDB.custom(jrTemplateSourceDB).withTemplateDBExtractor(templateDBExtractor).build();
     }
     public static void setJrOutputMail(JROutputMail jrOutputMail) {
         JRDefaultContext.jrOutputMail = jrOutputMail;

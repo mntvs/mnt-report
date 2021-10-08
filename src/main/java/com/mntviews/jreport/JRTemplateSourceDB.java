@@ -46,7 +46,7 @@ public class JRTemplateSourceDB extends JRTemplateSource {
     }
 
     public static Builder custom(JRTemplateSourceDB jrTemplateSourceDB) {
-        return new Builder(jrTemplateSourceDB.getTag()).connection(jrTemplateSourceDB.getJRConnection()).templateDBExtractor(jrTemplateSourceDB.getTemplateDBExtractor());
+        return new Builder(jrTemplateSourceDB.getTag()).withConnection(jrTemplateSourceDB.getJRConnection()).withTemplateDBExtractor(jrTemplateSourceDB.getTemplateDBExtractor());
     }
 
     @Override
@@ -89,13 +89,13 @@ public class JRTemplateSourceDB extends JRTemplateSource {
         }
 
         @JsonProperty("connection")
-        public Builder connection(JRConnection connection) {
+        public Builder withConnection(JRConnection connection) {
             this.connection = connection;
             return this;
         }
 
         @JsonIgnore
-        public Builder templateDBExtractor(TemplateDBExtractor templateDBExtractor) {
+        public Builder withTemplateDBExtractor(TemplateDBExtractor templateDBExtractor) {
             this.templateDBExtractor = templateDBExtractor;
             return this;
         }

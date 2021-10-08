@@ -29,45 +29,45 @@ public class JRPackageTest extends JRMailBaseTest {
 
         super.init();
         JROutputMail jrOutputMail = JROutputMail.custom()
-                .body("test")
-                .subject("test")
-                .to(TO_TEST)
-                .from(FROM_TEST)
-                .host(HOST_TEST)
-                .port(PORT_TEST)
-                .userName(USERNAME_TEST)
-                .password(PASSWORD_TEST).build();
+                .withBody("test")
+                .withSubject("test")
+                .withTo(TO_TEST)
+                .withFrom(FROM_TEST)
+                .withHost(HOST_TEST)
+                .withPort(PORT_TEST)
+                .withUserName(USERNAME_TEST)
+                .withPassword(PASSWORD_TEST).build();
 
 
         JRReport jrReport = JRReport.custom(JRTemplate
                         .custom(JRTemplateSourceFile
                                 .custom()
-                                .path(TestContext.getResourcePath())
-                                .name(TEMPLATE_FILENAME_TEST)
+                                .withPath(TestContext.getResourcePath())
+                                .withName(TEMPLATE_FILENAME_TEST)
                                 .build())
                         .build())
-                .exportType(JRExportType.XLSX)
-                .fileName("test")
-                .paramList(List.of(JRParamValString.createOf("testParamString", "qwerty")
+                .withExportType(JRExportType.XLSX)
+                .withFileName("test")
+                .withParamList(List.of(JRParamValString.createOf("testParamString", "qwerty")
                         , JRParamValNumber.createOf("testParamNumber", 34567785L)))
                 .build();
 
 
         jrPackage = JRPackage.custom()
-                .connection(jrConnection)
-                .outputList(List.of(jrOutputMail))
-                .reportList(List.of(jrReport)).build();
+                .withConnection(jrConnection)
+                .withOutputList(List.of(jrOutputMail))
+                .withReportList(List.of(jrReport)).build();
 
 
         JRReport jrReportSourceDB = JRReport.custom(JRTemplate
                         .custom(JRTemplateSourceDB
                                 .custom(TEMPLATE_FILENAME_TEST)
-                                .connection(jrConnection)
+                                .withConnection(jrConnection)
                                 .build())
                         .build())
-                .exportType(JRExportType.XLSX)
-                .fileName("test")
-                .paramList(List.of(JRParamValString.createOf("testParamString", "qwerty")
+                .withExportType(JRExportType.XLSX)
+                .withFileName("test")
+                .withParamList(List.of(JRParamValString.createOf("testParamString", "qwerty")
                         , JRParamValNumber.createOf("testParamNumber", 34567785L)))
                 .build();
 
@@ -80,9 +80,9 @@ public class JRPackageTest extends JRMailBaseTest {
 
 
         jrPackageSourceDB = JRPackage.custom()
-                .connection(jrConnection)
-                .outputList(List.of(jrOutputMail))
-                .reportList(List.of(jrReportSourceDB)).build();
+                .withConnection(jrConnection)
+                .withOutputList(List.of(jrOutputMail))
+                .withReportList(List.of(jrReportSourceDB)).build();
     }
 
     @Test
