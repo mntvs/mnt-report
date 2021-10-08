@@ -1,0 +1,50 @@
+{
+  "outputList": [
+    {
+      "mail": {
+        "from": "megahitgroup1@gmail.com",
+        "to": "kuznetsovstv@gmail.com",
+        "subject": "test",
+        "body": "test",
+        "host": "127.0.0.1",
+        "userName": "megahitgroup1@gmail.com",
+        "password": "123",
+        "port": "2525",
+        "withAttachment": true
+      }
+    }
+  ],
+  "reportList": [
+    {
+      "template": {
+        "source": {
+          "file": {
+            "name": "test.jrxml",
+            "path": "/home/mnt/dev/mnt/mnt-report/build/resources/test/template"
+          }
+        }
+      },
+      "exportType": "XLSX",
+      "paramList": [
+        {
+          "type": "string",
+          "key": "testParamString",
+          "val": "qwerty"
+        },
+        {
+          "type": "number",
+          "key": "testParamNumber",
+          "val": 34567785
+        }
+      ],
+      "fileName": "test",
+      "isZip": false,
+      "configScript": "if (binding.hasVariable('confXlsx')) confXlsx.setMaxRowsPerSheet(100);"
+    }
+  ],
+  "connection": {
+    "url": "jdbc:postgresql://localhost:49261/mnt?loggerLevel=OFF",
+    "userName": "mnt",
+    "password": "secret"
+  }
+}

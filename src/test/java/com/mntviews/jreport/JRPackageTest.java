@@ -22,6 +22,8 @@ public class JRPackageTest extends JRMailBaseTest {
     private JRPackage jrPackage;
     private JRPackage jrPackageSourceDB;
 
+    String script;
+
     @BeforeEach
     public void init() throws IOException, SQLException {
 
@@ -38,12 +40,12 @@ public class JRPackageTest extends JRMailBaseTest {
 
 
         JRReport jrReport = JRReport.custom(JRTemplate
-                .custom(JRTemplateSourceFile
-                        .custom()
-                        .path(TestContext.getResourcePath())
-                        .name(TEMPLATE_FILENAME_TEST)
+                        .custom(JRTemplateSourceFile
+                                .custom()
+                                .path(TestContext.getResourcePath())
+                                .name(TEMPLATE_FILENAME_TEST)
+                                .build())
                         .build())
-                .build())
                 .exportType(JRExportType.XLSX)
                 .fileName("test")
                 .paramList(List.of(JRParamValString.createOf("testParamString", "qwerty")
@@ -58,16 +60,18 @@ public class JRPackageTest extends JRMailBaseTest {
 
 
         JRReport jrReportSourceDB = JRReport.custom(JRTemplate
-                .custom(JRTemplateSourceDB
-                        .custom(TEMPLATE_FILENAME_TEST)
-                        .connection(jrConnection)
+                        .custom(JRTemplateSourceDB
+                                .custom(TEMPLATE_FILENAME_TEST)
+                                .connection(jrConnection)
+                                .build())
                         .build())
-                .build())
                 .exportType(JRExportType.XLSX)
                 .fileName("test")
                 .paramList(List.of(JRParamValString.createOf("testParamString", "qwerty")
                         , JRParamValNumber.createOf("testParamNumber", 34567785L)))
                 .build();
+
+        script = JRPackage.serializeJRPackage(jrPackage);
 
 
         String testTemplate = getStringFromResource("template/" + TEMPLATE_FILENAME_TEST);
@@ -113,5 +117,19 @@ public class JRPackageTest extends JRMailBaseTest {
 
     }
 
+    @Test
+    void executeFromScript() throws MessagingException {
+        JRPackage jrPackage = JRPackage.deserializeJRPackage(script);
+        jrPackage.execute();
+
+        if (greenMail.waitForIncomingEmail(1)) {
+            MimeMessage testMessage = greenMail.getReceivedMessages()[0];
+            assertEquals(testMessage.getSubject(), "test");
+            assertEquals(testMessage.getRecipients(Message.RecipientType.TO)[0].toString(), TO_TEST);
+            assertEquals(testMessage.getFrom()[0].toString(), FROM_TEST);
+        } else {
+            Assertions.fail("email not sent");
+        }
+    }
 
 }

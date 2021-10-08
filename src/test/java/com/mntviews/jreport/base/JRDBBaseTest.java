@@ -17,12 +17,15 @@ import java.util.stream.Collectors;
 @Testcontainers
 public class JRDBBaseTest {
 
+    private final static String DATABASE_NAME = "mnt";
+    private final static String USER_NAME = "mnt";
+    private final static String PASSWORD = "secret";
 
     @Container
     protected PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer("postgres:11.1")
-            .withDatabaseName("foo")
-            .withUsername("foo")
-            .withPassword("secret");
+            .withDatabaseName(DATABASE_NAME)
+            .withUsername(USER_NAME)
+            .withPassword(PASSWORD);
 
     /**
      * Initialization for postgres test container. Gets sql scripts from db.migration anp process them to the database
@@ -36,6 +39,7 @@ public class JRDBBaseTest {
 
     /**
      * Converts resource file to the String
+     *
      * @param fileName the source name of the file
      * @return the result string
      * @throws IOException if there is io errors

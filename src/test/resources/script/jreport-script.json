@@ -1,0 +1,66 @@
+{
+  "connection": {
+    "url": "jdbc:postgresql://localhost:5432/mnt",
+    "userName": "mnt",
+    "password": "secret"
+  },
+  "outputList": [
+    {
+      "mail": {
+        .body(BODY_TEST)
+        .subject(SUBJECT_TEST)
+        .to(TO_TEST)
+        .from(FROM_TEST)
+        .host(HOST_TEST)
+        .port(PORT_TEST)
+        .userName(USERNAME_TEST)
+        .password(PASSWORD_TEST).build();
+
+
+        "body": "body",
+        "subject": "subject",
+        "to": "kuznetsovstv@gmail.com",
+        "from": "megahitgroup1@gmail.com",
+        "host":
+      }
+    }
+  ],
+  "reportList": [
+    {
+      "template": {
+        "source": {
+          "db": {
+            "tag": "tt"
+          }
+        }
+      },
+      "exportType": "XLSX"
+    },
+    {
+      "template": {
+        "source": {
+          "db": {
+            "tag": "tt"
+          }
+        }
+      },
+      "paramList": [
+        {
+          "type": "string",
+          "key": "key1",
+          "val": "String"
+        },
+        {
+          "type": "number",
+          "key": "key2",
+          "val": 123
+        }
+      ],
+      "exportType": "PDF",
+      "fileName": "test",
+      "isZip": true,
+      "configScript" : "confXlsx.setMaxRowsPerSheet(100);"
+    }
+  ],
+  "isZip": false
+}

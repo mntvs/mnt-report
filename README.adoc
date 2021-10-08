@@ -9,26 +9,133 @@ It is possible to use either control files in the json format in the declarative
 * Pdf
 * Doc
 
-Template source in jrxml format can be saved in database, file or received through command.
+.Supported output destinations :
+* save to the file
+* send via mail
+* save to the database
 
 
-.Lightweight Markup
 ****
-Writing languages that let you type less and express more.
+
+Template source in jrxml format can be saved in database, file or received through command or script file.
+
 ****
 
-TIP: You can add line numbers to source listings by adding the word `numbered` in the attribute list after the language name.
+Examples :
 
-Examples:
+execution of the script :
+
+----
+        JRPackage jrPackage = JRPackage.deserializeJRPackage(script);
+        jrPackage.execute();
+----
+
+script is the String with text below
+
+using script file:
+
+----
+{
+  "outputList": [
+    {
+      "mail": {
+        "from": "megahitgroup1@gmail.com",
+        "to": "kuznetsovstv@gmail.com",
+        "subject": "test",
+        "body": "test",
+        "host": "127.0.0.1",
+        "userName": "megahitgroup1@gmail.com",
+        "password": "123",
+        "port": "2525",
+        "withAttachment": true
+      }
+    }
+  ],
+  "reportList": [
+    {
+      "template": {
+        "source": {
+          "file": {
+            "name": "test.jrxml",
+            "path": "/home/mnt/dev/mnt/mnt-report/build/resources/test/template"
+          }
+        }
+      },
+      "exportType": "XLSX",
+      "paramList": [
+        {
+          "type": "string",
+          "key": "testParamString",
+          "val": "qwerty"
+        },
+        {
+          "type": "number",
+          "key": "testParamNumber",
+          "val": 34567785
+        }
+      ],
+      "fileName": "test",
+      "isZip": false,
+      "configScript": "if (binding.hasVariable('confXlsx')) confXlsx.setMaxRowsPerSheet(100);"
+    }
+  ],
+  "connection": {
+    "url": "jdbc:postgresql://localhost:49261/mnt?loggerLevel=OFF",
+    "userName": "mnt",
+    "password": "secret"
+  }
+}
+----
+
+****
+
+object can be constructed in the java code with builder patterns
+
+****
+
 
 [source,java]
 ----
 
-JRReport report = JRReport.custom(JRTemplate.custom(templateSource).build()).exportType(JRExportType.XLSX).build();
-JRFile jrFile = reportXLSX.execute(null);
+ JROutputMail jrOutputMail = JROutputMail.custom()
+                .body("test")
+                .subject("test")
+                .to("a@b.com")
+                .from("c@d.com")
+                .host("127.0.0.1")
+                .port("2525")
+                .userName("c@d.com")
+                .password("secret").build();
 
+        JRReport jrReport = JRReport.custom(JRTemplate
+                        .custom(JRTemplateSourceFile
+                                .custom()
+                                .path("/tmp/")
+                                .name("tt.jrxml")
+                                .build())
+                        .build())
+                .exportType(JRExportType.XLSX)
+                .fileName("test")
+                .paramList(List.of(JRParamValString.createOf("testParamString", "qwerty")
+                        , JRParamValNumber.createOf("testParamNumber", 34567785L)))
+                .build();
+
+        JRConnection jrConnection = JRConnection.custom()
+                .url(postgresqlContainer.getJdbcUrl())
+                .userName(postgresqlContainer.getUsername())
+                .password(postgresqlContainer.getPassword())
+                .connectionCreator((url, userName, password) -> {
+                    Properties info = new Properties();
+                    info.put("user", userName);
+                    info.put("password", password);
+                    return DriverManager.getConnection(url, info);
+                })
+                .build();
+
+        jrPackage = JRPackage.custom()
+                .connection(jrConnection)
+                .outputList(List.of(jrOutputMail))
+                .reportList(List.of(jrReport)).build();
+
+        jrPackage.execute();
 ----
-
-:home: https://example.org
-
-Go to the {home}[home page].
