@@ -39,13 +39,13 @@ using script file:
   "outputList": [
     {
       "mail": {
-        "from": "megahitgroup1@gmail.com",
-        "to": "kuznetsovstv@gmail.com",
+        "from": "a@b.com",
+        "to": "c@d.com",
         "subject": "test",
         "body": "test",
         "host": "127.0.0.1",
-        "userName": "megahitgroup1@gmail.com",
-        "password": "123",
+        "userName": "a@b.com",
+        "password": "1234",
         "port": "2525",
         "isAttachment": true
       }

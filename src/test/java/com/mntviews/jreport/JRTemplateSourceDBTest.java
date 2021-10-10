@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class JRTemplateSourceDBTest extends JRConnectionBaseTest {
+class JRTemplateSourceDBTest extends JRConnectionBaseTest {
     final private static String REPORT_TAG_TEST = "TEST";
     final private static String TEMPLATE_FILENAME_TEST = "template/test.jrxml";
 
@@ -27,7 +27,7 @@ public class JRTemplateSourceDBTest extends JRConnectionBaseTest {
     }
 
     @Test
-    public void loadTemplateFromDB() {
+    void loadTemplateFromDB() {
         InputStream inputStream = templateSourceDB.load();
         assertNotNull(inputStream);
     }

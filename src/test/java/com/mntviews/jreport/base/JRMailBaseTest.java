@@ -12,12 +12,12 @@ import org.junit.jupiter.api.BeforeAll;
  * The base class for sending email
  */
 public class JRMailBaseTest extends JRConnectionBaseTest {
-    final protected static String FROM_TEST = "megahitgroup1@gmail.com";
-    final protected static String TO_TEST = "kuznetsovstv@gmail.com";
-    final protected static String USERNAME_TEST = "megahitgroup1@gmail.com";
+    final protected static String FROM_TEST = "a@b.com";
+    final protected static String TO_TEST = "c@d.com";
+    final protected static String USERNAME_TEST = "a@b.com";
     final protected static String HOST_TEST = "127.0.0.1";
     final protected static String PORT_TEST = "2525";
-    final protected static String PASSWORD_TEST = "123";
+    final protected static String PASSWORD_TEST = "1234";
 
     protected static GreenMail greenMail;
 

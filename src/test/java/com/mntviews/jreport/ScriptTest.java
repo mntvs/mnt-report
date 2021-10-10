@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ScriptTest extends JRMailBaseTest {
+class ScriptTest extends JRMailBaseTest {
 
     final static private String PATH = "script/";
     final static private String TEMPLATE_FROM_DB = "jreport-script-templateFromDb.json";

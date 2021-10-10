@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class JRPackageTest extends JRMailBaseTest {
+class JRPackageTest extends JRMailBaseTest {
 
     final private static String TEMPLATE_FILENAME_TEST = "test.jrxml";
 
@@ -92,9 +92,9 @@ public class JRPackageTest extends JRMailBaseTest {
 
         if (greenMail.waitForIncomingEmail(1)) {
             MimeMessage testMessage = greenMail.getReceivedMessages()[0];
-            assertEquals(testMessage.getSubject(), "test");
-            assertEquals(testMessage.getRecipients(Message.RecipientType.TO)[0].toString(), TO_TEST);
-            assertEquals(testMessage.getFrom()[0].toString(), FROM_TEST);
+            assertEquals("test", testMessage.getSubject());
+            assertEquals(TO_TEST, testMessage.getRecipients(Message.RecipientType.TO)[0].toString());
+            assertEquals(FROM_TEST, testMessage.getFrom()[0].toString());
         } else {
             Assertions.fail("email not sent");
         }
@@ -108,9 +108,9 @@ public class JRPackageTest extends JRMailBaseTest {
 
         if (greenMail.waitForIncomingEmail(1)) {
             MimeMessage testMessage = greenMail.getReceivedMessages()[0];
-            assertEquals(testMessage.getSubject(), "test");
-            assertEquals(testMessage.getRecipients(Message.RecipientType.TO)[0].toString(), TO_TEST);
-            assertEquals(testMessage.getFrom()[0].toString(), FROM_TEST);
+            assertEquals("test", testMessage.getSubject());
+            assertEquals(TO_TEST, testMessage.getRecipients(Message.RecipientType.TO)[0].toString());
+            assertEquals(FROM_TEST, testMessage.getFrom()[0].toString());
         } else {
             Assertions.fail("email not sent");
         }
@@ -124,9 +124,9 @@ public class JRPackageTest extends JRMailBaseTest {
 
         if (greenMail.waitForIncomingEmail(1)) {
             MimeMessage testMessage = greenMail.getReceivedMessages()[0];
-            assertEquals(testMessage.getSubject(), "test");
-            assertEquals(testMessage.getRecipients(Message.RecipientType.TO)[0].toString(), TO_TEST);
-            assertEquals(testMessage.getFrom()[0].toString(), FROM_TEST);
+            assertEquals("test", testMessage.getSubject());
+            assertEquals(TO_TEST, testMessage.getRecipients(Message.RecipientType.TO)[0].toString());
+            assertEquals(FROM_TEST, testMessage.getFrom()[0].toString());
         } else {
             Assertions.fail("email not sent");
         }

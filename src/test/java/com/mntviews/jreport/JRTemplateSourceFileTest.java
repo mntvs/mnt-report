@@ -13,7 +13,7 @@ import java.net.URISyntaxException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class JRTemplateSourceFileTest {
+class JRTemplateSourceFileTest {
     private static String TEST_JRXML = "test.jrxml";
 
     JRTemplateSourceFile templateSourceFile;
@@ -21,9 +21,7 @@ public class JRTemplateSourceFileTest {
 
     @BeforeEach
     void init() throws URISyntaxException, IOException {
-
         templateSourceFile = JRTemplateSourceFile.custom().withPath(TestContext.getResourcePath()).withName(TEST_JRXML).build();
-
     }
 
     @Test

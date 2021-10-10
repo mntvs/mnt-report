@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class JRTemplateTest {
+class JRTemplateTest {
 
     @Mock
     JRTemplateSource templateSource;

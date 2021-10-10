@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Tests output to the file
  */
-public class JROutputFileTest {
+class JROutputFileTest {
 
     JROutputFile outputFile;
 
@@ -32,7 +32,7 @@ public class JROutputFileTest {
      * Saves JRFile to the disk and checks the content after that
      */
     @Test
-    public void saveDataToFileTest() throws IOException {
+    void saveDataToFileTest() throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byteArrayOutputStream.write(TEST_STRING.getBytes());
         List<JRFile> jrFileList = new ArrayList<>();

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Tests sending JRFile by email
  */
-public class  JROutputMailTest extends JRMailBaseTest {
+class  JROutputMailTest extends JRMailBaseTest {
 
     final protected static String TEST_STRING = "text";
     final private static String BODY_TEST = "test";
@@ -40,7 +40,7 @@ public class  JROutputMailTest extends JRMailBaseTest {
 
 
     @Test
-    public void sendMailTest() throws IOException, MessagingException {
+    void sendMailTest() throws IOException, MessagingException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byteArrayOutputStream.write(TEST_STRING.getBytes());
         List<JRFile> jrFileList = new ArrayList<>();
@@ -50,9 +50,9 @@ public class  JROutputMailTest extends JRMailBaseTest {
 
         if (greenMail.waitForIncomingEmail(1)) {
             MimeMessage testMessage = greenMail.getReceivedMessages()[0];
-            Assertions.assertEquals(testMessage.getSubject(), SUBJECT_TEST);
-            Assertions.assertEquals(testMessage.getRecipients(Message.RecipientType.TO)[0].toString(), TO_TEST);
-            Assertions.assertEquals(testMessage.getFrom()[0].toString(), FROM_TEST);
+            Assertions.assertEquals(SUBJECT_TEST ,testMessage.getSubject());
+            Assertions.assertEquals(TO_TEST, testMessage.getRecipients(Message.RecipientType.TO)[0].toString());
+            Assertions.assertEquals(FROM_TEST, testMessage.getFrom()[0].toString());
             //MimeMultipart mimeMultipart = (MimeMultipart)testMessage.getContent();
             //assertEquals(mimeMultipart.getBodyPart(0).getFileName(), TEST_STRING);
         } else {

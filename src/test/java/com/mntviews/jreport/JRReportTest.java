@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class JRReportTest {
+class JRReportTest {
     JRReport reportXLSX;
 
     @Mock
